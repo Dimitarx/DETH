@@ -1,0 +1,30 @@
+We start off the day with 120 minutes and 1-5 energy.
+We have a probability of oversleeping 0.2(t-15) and waking up on time 0.8
+
+Each state contains a place, time before class, energy level, weather(wet, dry)
+
+I have 4 actions:
+	At home I can chose to either take the bus or ride a bike.
+		If I ride a bike there is a 0.95 probability of everything going smooth and in that case t-60
+		and a 0.05 probability of getting a flat tire where the time delay is more
+		
+		If I take the bus there is a probability of it being on time in which case t-time of bus ride
+		and a probability of the bus being delayed in which case t-time of bus ride-delay and e - 2
+		
+	When I arrive at the building I can chose to take the stairs or the elevator.
+		If I take the stairs t-3, e-number of floors
+		
+		If I take the elevator there is a probability the elevator is at my floor t-elevator time ride(2)
+		and a probability of it being delayed t-elevator time ride-delay(up to 7 minutes)
+
+At the end I arrive at class and the reward get calculated lateness + early + energy
+	lateness-how many minutes late to class(-1 point for each minute)
+	early-if I arrive early to class(+2 points if early, +0 if late)
+	energy-amount of energy left(1-5, -5 -2 0 2 5)
+
+The way the mdp is set up now there is no real use of the weather parameter, but this can be changed if the probabilities of getting a flat tire or the bus being delayed directly correspond to the weather.
+
+How I think it behaves:
+	With enough time the bike is the safest choice because it costs no energy
+	If we have less time so if we overslept the bus is better because it's faster but might cost energy.
+	Taking the stairs costs energy so the elevator should most often be the correct choice even if it's delayed.
